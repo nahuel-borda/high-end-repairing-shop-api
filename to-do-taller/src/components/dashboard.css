@@ -1,3 +1,5 @@
+/* color-scheme: https://coolors.co/990f00-666666-050607-dddddd-f6f8fa */
+
 .finalizado_board, .demorado_board, .en_proceso_board, .en_espera_board { vertical-align: top; padding: 15px; min-width: 350px; width: 100%; max-width: 24%; display: inline-block; background-color: #990F00; margin-right: .5%; margin-bottom: 20px }
 body { padding: 20px; background-color: #737B80 }
 #dashboard_header { width: 90%; max-height: 100px }
