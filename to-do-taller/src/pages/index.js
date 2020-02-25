@@ -5,6 +5,8 @@ import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 
+import '../components/dashboard.css';
+
 const IndexPage = () => {
 
   const data = useStaticQuery(graphql`
@@ -17,6 +19,12 @@ const IndexPage = () => {
               descripcion
               moto {
                 patente
+                modelo {
+                  name
+                }
+                marca {
+                  name
+                }
                 cliente {
                   nombre
                   apellido
@@ -30,33 +38,127 @@ const IndexPage = () => {
   return (
     <div>
       <SEO title="Home"/>
-      <h1>Hi people</h1>
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>
-      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-        <Image />
-      </div>
-          <tr>
-            <td><span>id</span></td>
-            <td><span>estado</span></td>
-            <td><span>descripcion</span></td>
-            <td><span>patente</span></td>
-            <td><span>nombre cliente</span></td>
-            <td><span>apellido cliente</span></td>
-          </tr>
-      {data.allRestApiServicios.edges.map(edge => {
-        return (
-          <tr>
-            <td>{edge.node.id}</td>
-            <td>{edge.node.estado}</td>
-            <td>{edge.node.descripcion}</td>
-            <td>{edge.node.moto.patente}</td>
-            <td>{edge.node.moto.cliente.nombre}</td>
-            <td>{edge.node.moto.cliente.apellido}</td>
-          </tr>
-        );
-      })}
-      <Link to="/page-2/">Go to page 2</Link>
+      <div id="dashboard">
+        <div id="dashboard_header">
+          <div id="header_title"><h1>Integral Motos</h1></div>
+          <div id='header_logo'><div id="logo_image"><Image/></div></div>
+        </div>
+        <div class="en_espera_board board">
+          <h1>En Espera</h1>
+          <span class="ncards"></span>
+          <div class="cardwrappper">
+          {data.allRestApiServicios.edges.map(edge => {
+            if (edge.node.estado === 'En espera') {
+              return (
+                <div class="card">
+                  <h1>{edge.node.moto.marca.name} {edge.node.moto.modelo.name}</h1>
+                  <div class="descripcion">
+                    <div class="descripcion-text">
+                      <span>{edge.node.descripcion}</span>
+                    </div>
+                  </div>
+                  <span>Vehiculo: {edge.node.moto.patente}</span>
+                  <div class="estado_wrapper">
+                    <div class="estado_card">
+                      <span class="estado_card_text">
+                        Estado: <span class='estado_value'>{edge.node.estado}</span>
+                      </span>
+                    </div>
+                    <div class="card_buttons">
+                      <button class="take_card_button"><span>tomar servicio</span></button>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+          })}
+          </div>
+        </div>
+        <div class="en_proceso_board board">
+          <h1>En Proceso</h1>
+          <span class="ncards"></span>
+          <div class="cardwrappper">
+          {data.allRestApiServicios.edges.map(edge => {
+            if (edge.node.estado === 'En proceso') {
+              return (
+                <div class="card">
+                  <h1>{edge.node.moto.marca.name} {edge.node.moto.modelo.name}</h1>
+                  <div class="descripcion">
+                    <div class="descripcion-text">
+                      <span></span>
+                    </div>
+                  </div>
+                  <span>Vehiculo: {edge.node.moto.patente}</span>
+                  <div class="estado_wrapper">
+                    <div class="estado_card">
+                      <span class="estado_card_text">
+                        Estado: <span class='estado_value'>{edge.node.estado}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+          })}
+          </div>
+        </div>
+        <div class="finalizado_board board">
+          <h1>Finalizado</h1>
+          <span class="ncards"></span>
+          <div class="cardwrappper">
+          {data.allRestApiServicios.edges.map(edge => {
+            if (edge.node.estado === 'Finalizado') {
+              return (
+                <div class="card">
+                  <h1>{edge.node.moto.marca.name} {edge.node.moto.modelo.name}</h1>
+                  <div class="descripcion">
+                    <div class="descripcion-text">
+                      <span></span>
+                    </div>
+                  </div>
+                  <span>Vehiculo: {edge.node.moto.patente}</span>
+                  <div class="estado_wrapper">
+                    <div class="estado_card">
+                      <span class="estado_card_text">
+                        Estado: <span class='estado_value'>{edge.node.estado}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+          })}
+          </div>
+        </div>
+        <div class="demorado_board board">
+          <h1>Demorado</h1>
+          <span class="ncards"></span>
+          <div class="cardwrappper">
+          {data.allRestApiServicios.edges.map(edge => {
+            if (edge.node.estado === 'Demorado') {
+              return (
+                <div class="card">
+                  <h1>{edge.node.moto.marca.name} {edge.node.moto.modelo.name}</h1>
+                  <div class="descripcion">
+                    <div class="descripcion-text">
+                      <span>{edge.node.descripcion}</span>
+                    </div>
+                  </div>
+                  <span>Vehiculo: {edge.node.moto.patente}</span>
+                  <div class="estado_wrapper">
+                    <div class="estado_card">
+                      <span class="estado_card_text">
+                        Estado: <span class='estado_value'>{edge.node.estado}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+          })}
+          </div>
+        </div>
+      </div>        
     </div>
   )
 }

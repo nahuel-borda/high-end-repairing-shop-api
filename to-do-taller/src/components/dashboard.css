@@ -1,0 +1,20 @@
+.finalizado_board, .demorado_board, .en_proceso_board, .en_espera_board { vertical-align: top; padding: 15px; min-width: 350px; width: 100%; max-width: 24%; display: inline-block; background-color: #990F00; margin-right: .5%; margin-bottom: 20px }
+body { padding: 20px; background-color: #737B80 }
+#dashboard_header { width: 90%; max-height: 100px }
+.finalizado_board h1, .demorado_board h1, .en_proceso_board h1, .en_espera_board h1 { color: white }
+#header_logo { width: 50%; display: inline-block; text-align: right }
+#header_logo #logo_image { margin-top: -3%; width: 100px; height: 100px; display: inline-block }
+#header_title { width: 50%; display: inline-block; vertical-align: top }
+.board .cardwrappper::-webkit-scrollbar { display: none }
+.board .cardwrappper { -ms-overflow-style: none; overflow: scroll }
+.board { max-height: 600px; overflow: hidden; border: 10px solid #990F00 }
+.cardwrappper { max-height: 600px; padding-bottom: 100px }
+.ncards { display: none }
+.card { border: 2px solid transparent; border-radius: 5px; min-width: 250px; height: auto; padding: 5px; margin-bottom: 10px; text-align: left; background-color: white }
+.card h1 { font-weight: bold; font-size: 20px; color: #666 }
+.card span { font-size: 15px; color: #666666 }
+.estado_card { display: inline-block; width: 50% }
+.estado_card .estado_card_text { font-size: 14px; color: black; font-weight: normal }
+.card_buttons { text-align: right; display: inline-block; width: 50% }
+.card .estado_value { font-weight: bold; color: green; text-transform: uppercase;}
+.card_buttons .take_card_button { display: inline-block; background: transparent; border: 2px solid #666; text-transform: uppercase; font-weight: bold; font-size: 15px; display: inline-table }
