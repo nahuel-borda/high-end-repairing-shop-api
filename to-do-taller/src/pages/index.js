@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql, useStaticQuery, Link } from "gatsby"
+import { FaAngleDoubleRight} from 'react-icons/fa';
 
 import Layout from "../components/layout"
 import Image from "../components/image"
@@ -61,11 +62,11 @@ const IndexPage = () => {
                   <div class="estado_wrapper">
                     <div class="estado_card">
                       <span class="estado_card_text">
-                        Estado: <span class='estado_value'>{edge.node.estado}</span>
+                        <span class='estado_value'>{edge.node.estado}</span>
                       </span>
                     </div>
                     <div class="card_buttons">
-                      <button class="take_card_button"><span>tomar servicio</span></button>
+                      <button class="take_card_button"><span><FaAngleDoubleRight/></span></button>
                     </div>
                   </div>
                 </div>
@@ -92,7 +93,7 @@ const IndexPage = () => {
                   <div class="estado_wrapper">
                     <div class="estado_card">
                       <span class="estado_card_text">
-                        Estado: <span class='estado_value'>{edge.node.estado}</span>
+                        <span class='estado_value'>{edge.node.estado}</span>
                       </span>
                     </div>
                   </div>
@@ -120,7 +121,7 @@ const IndexPage = () => {
                   <div class="estado_wrapper">
                     <div class="estado_card">
                       <span class="estado_card_text">
-                        Estado: <span class='estado_value'>{edge.node.estado}</span>
+                        <span class='estado_value'>{edge.node.estado}</span>
                       </span>
                     </div>
                   </div>
@@ -148,7 +149,7 @@ const IndexPage = () => {
                   <div class="estado_wrapper">
                     <div class="estado_card">
                       <span class="estado_card_text">
-                        Estado: <span class='estado_value'>{edge.node.estado}</span>
+                        <span class='estado_value'>{edge.node.estado}</span>
                       </span>
                     </div>
                   </div>

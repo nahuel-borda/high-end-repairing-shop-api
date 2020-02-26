@@ -1,18 +1,20 @@
 /* color-scheme: https://coolors.co/990f00-666666-050607-dddddd-f6f8fa */
 
-.finalizado_board, .demorado_board, .en_proceso_board, .en_espera_board { vertical-align: top; padding: 15px; min-width: 350px; width: 100%; max-width: 24%; display: inline-block; background-color: #990F00; margin-right: .5%; margin-bottom: 20px }
-body { padding: 20px; background-color: #737B80 }
-#dashboard_header { width: 90%; max-height: 100px }
+.descripcion-text {display: none;}
+#dashboard_header {width: 100%; max-height: 100px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color: #050607; padding: 10px; margin-bottom: 10px;}
+.finalizado_board, .demorado_board, .en_proceso_board, .en_espera_board { vertical-align: top; padding: 15px; min-width: 375px; width: 100%; max-width: 24.5%; display: inline-block; background-color: #990F00; margin-right: .5%; margin-bottom: 20px }
+body { padding: 17px; background-color: rgba(0,0,0,0.6); overflow: scroll; width: 100%; -ms-overflow-style: none; max-height: 800px;}
+body::-webkit-scrollbar { display: none }
 .finalizado_board h1, .demorado_board h1, .en_proceso_board h1, .en_espera_board h1 { color: white }
-#header_logo { width: 50%; display: inline-block; text-align: right }
+#header_logo { width: 50%; display: inline-block; text-align: right; padding: 1%;}
 #header_logo #logo_image { margin-top: -3%; width: 100px; height: 100px; display: inline-block }
-#header_title { width: 50%; display: inline-block; vertical-align: top }
+#header_title { width: 50%; display: inline-block; vertical-align: top; color: white; padding: 1%;}
 .board .cardwrappper::-webkit-scrollbar { display: none }
 .board .cardwrappper { -ms-overflow-style: none; overflow: scroll }
-.board { max-height: 600px; overflow: hidden; border: 10px solid #990F00 }
+.board { box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); max-height: 600px; overflow: hidden; border: 10px solid #990F00; }
 .cardwrappper { max-height: 600px; padding-bottom: 100px }
 .ncards { display: none }
-.card { border: 2px solid transparent; border-radius: 5px; min-width: 250px; height: auto; padding: 5px; margin-bottom: 10px; text-align: left; background-color: white }
+.card { box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border: 2px solid transparent; border-radius: 2px; min-width: 250px; height: auto; padding: 5px; margin-bottom: 15px; text-align: left; background-color: white; font-family: sans-serif;}
 .card h1 { font-weight: bold; font-size: 20px; color: #666 }
 .card span { font-size: 15px; color: #666666 }
 .estado_card { display: inline-block; width: 50% }
@@ -20,3 +22,12 @@ body { padding: 20px; background-color: #737B80 }
 .card_buttons { text-align: right; display: inline-block; width: 50% }
 .card .estado_value { font-weight: bold; color: green; text-transform: uppercase;}
 .card_buttons .take_card_button { display: inline-block; background: transparent; border: 2px solid #666; text-transform: uppercase; font-weight: bold; font-size: 15px; display: inline-table }
+.card_buttons button {border-radius: 2px; background-color: #666666 !important; font-family: sans-serif;}
+.card_buttons span {color: #F6F8FA !important;}
+.card_buttons button:hover {background-color: black !important; }
+html {
+  background-image: url("../images/background-board.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
