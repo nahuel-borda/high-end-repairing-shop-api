@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from motos.urls import urlpatterns as motos_urls
 
+admin.site.site_header = 'Integral Motos - Management'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]

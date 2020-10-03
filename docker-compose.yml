@@ -5,10 +5,10 @@ services:
     image: high-end-taller:latest
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:41666
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "8000:41666"
     depends_on:
       - db
