@@ -1,6 +1,6 @@
 asgiref==3.2.3
 autopep8==1.5
-Django==3.0.7
+Django==3.1.6
 django-admin-autocomplete-filter==0.4
 django-admin-shortcuts==2.0.0
 django-autocompletefilter==0.0.6
