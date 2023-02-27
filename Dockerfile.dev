@@ -1,5 +1,5 @@
 #!/bin/sh
-FROM python:3.7-slim-buster
+FROM python:3.11-slim-buster
 ENV PYTHONUNBUFFERED 1
 RUN apt-get update \
   # uwsgi dependencies
