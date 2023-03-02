@@ -46,8 +46,8 @@ class Provider(models.Model):
 
 class Device(models.Model):
     patent = models.CharField(max_length=250)
-    model = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    brand = models.ForeignKey(Model, on_delete=models.CASCADE)
+    model = models.ForeignKey(Model, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -74,8 +74,14 @@ class Operator(models.Model):
 
 
 class Service(models.Model):
+    class Status(models.TextChoices):
+        WAITING = "En espera", "En espera"
+        PROCESSING = "En proceso", "En proceso"
+        DELAYED = "Demorado", "Demorado"
+        FINISHED = "Finalizado", "Finalizado"
+
+    status = models.CharField(max_length=50, choices=Status.choices, default=Status.WAITING)
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50, choices=SERVICE_STATUS_CHOICES, default='En espera')
     ingress_date = models.DateTimeField(auto_now_add=True)
     start_date = models.DateTimeField(null=True, blank=True)
     end_date = models.DateTimeField(null=True, blank=True)
@@ -95,6 +101,10 @@ class Service(models.Model):
     def finalize_service(self):
         self.status = SERVICE_STATUS_CHOICES[3]
         self.save()
+
+    def get_status_display(self):
+        from ast import literal_eval;
+        return literal_eval(self.status)[0] 
 
     def __str__(self):
         return f"{self.device} - {self.status}"

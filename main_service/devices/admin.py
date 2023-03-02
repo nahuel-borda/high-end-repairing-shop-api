@@ -14,7 +14,7 @@ from .models import (
 from django import forms
 
 class ServiceModelForm(forms.ModelForm):
-    descripcion = forms.CharField(widget=forms.Textarea)
+    description = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = Service
@@ -67,15 +67,14 @@ class OperatorAdmin(AutocompleteFilterMixin, admin.ModelAdmin):
 class ServiceAdmin(AutocompleteFilterMixin, admin.ModelAdmin):
     list_display = ("device", "status", "ingress_date", "start_date", "end_date", "operator", "description")
     search_fields = ("device", "status", "ingress_date", "start_date", "end_date", "operator", "description")
-    list_filter = (
-            ("device", AutocompleteListFilter),
-            ("parts", AutocompleteListFilter),
-        )
+    #list_filter = (
+    #        ("parts", AutocompleteListFilter),
+    #    )
 
     form = ServiceModelForm
-    readonly_fields = ("status", "ingress_date", "parts")
+    #readonly_fields = ("status", "ingress_date")
 
-    autocomplete_fields = ["device", "parts"]
+    autocomplete_fields = ["parts"]
 
 
 @admin.register(Brand)
