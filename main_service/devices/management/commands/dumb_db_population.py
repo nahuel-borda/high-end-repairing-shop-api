@@ -3,7 +3,7 @@ import random
 
 from django.db import transaction
 from django.core.management.base import BaseCommand
-
+from datetime import datetime, timedelta
 from devices.models import *
 from devices.factories import *
 
@@ -14,7 +14,27 @@ NUM_PROVIDERS = 20
 NUM_DEVICES = 20
 NUM_PARTS = 60
 NUM_OPERATORS = 7
-NUM_SERVICES = 30
+NUM_SERVICES = 100
+
+
+def generate_fake_dates():
+    start_dt = datetime.now() - timedelta(days=30)
+    end_dt = datetime.now() + timedelta(days=30)
+
+    # difference between current and previous date
+    delta = timedelta(days=1)
+
+    # store the dates between two dates in a list
+    dates = []
+
+    while start_dt <= end_dt:
+        # add current date to list by converting  it to iso format
+        dates.append(start_dt)
+        # increment start date by timedelta
+        start_dt += delta
+    return dates
+
+DATES = generate_fake_dates()
 
 
 class Command(BaseCommand):
@@ -62,6 +82,9 @@ class Command(BaseCommand):
         parts_list = []
         for _ in range(NUM_PARTS):
             part = PartFactory()
+            part.provider = random.choice(provider_list)
+            part.brand = random.choice(brands_list)
+            part.save()
             parts_list.append(part)
         
         operators_list = []
@@ -74,6 +97,7 @@ class Command(BaseCommand):
             service.device = random.choice(devices_list)
             service.operator = random.choice(operators_list)
             service.status = random.choice(Service.Status.choices)
+            service.ingress_date = random.choice(DATES)
             for instance_id in random.choices(
                 list(
                     map(

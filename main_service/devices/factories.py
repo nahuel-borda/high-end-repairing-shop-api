@@ -1,9 +1,8 @@
 # factories.py
-import random
 import factory
 from factory.django import DjangoModelFactory
+from .models import Brand, Model, Client, Provider, Device, Part, Operator, Service
 
-from .models import Brand, Model, Client, Provider, Device, Part, Operator, Service, SERVICE_STATUS_CHOICES
 
 # Defining a factory
 class BrandFactory(DjangoModelFactory):
@@ -35,8 +34,7 @@ class ProviderFactory(DjangoModelFactory):
     class Meta:
         model = Provider
 
-    firstname = factory.Faker("first_name")
-    lastname = factory.Faker("last_name")
+    name = factory.Faker("name")
     address = factory.Faker("address")
     celphone = factory.Faker("random_int")
     email = factory.Faker("email")
@@ -58,6 +56,7 @@ class PartFactory(DjangoModelFactory):
 
     name = factory.Faker("first_name")
     provider = factory.SubFactory(ProviderFactory)
+    brand = factory.SubFactory(BrandFactory)
     price = factory.Faker("random_int")
 
 # Defining a factory

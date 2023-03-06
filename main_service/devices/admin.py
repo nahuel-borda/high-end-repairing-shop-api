@@ -23,8 +23,8 @@ class ServiceModelForm(forms.ModelForm):
 
 @admin.register(Provider)
 class ProviderAdmin(AutocompleteFilterMixin, admin.ModelAdmin):
-    list_display = ("firstname", "lastname", "address", "celphone", "email")
-    search_fields = ("firstname", "lastname", "address", "celphone", "email")
+    list_display = ("name", "address", "celphone", "email")
+    search_fields = ("name", "address", "celphone", "email")
 
 
 @admin.register(Client)

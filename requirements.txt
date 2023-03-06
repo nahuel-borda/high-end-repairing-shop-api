@@ -17,4 +17,5 @@ six==1.14.0
 sqlparse==0.3.0
 django-cors-headers==3.14.0
 factory-boy==3.2.1
+django-filter
 ipdb
