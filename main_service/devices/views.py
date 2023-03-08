@@ -28,6 +28,10 @@ class OperatorViewSet(viewsets.ReadOnlyModelViewSet):
 	queryset = Operator.objects.all()
 	serializer_class = OperatorSerializer
 
+	@action(detail=False, methods=['GET'], name='Get Top Operator by Workload')
+	def top_operator_by_workload(self, request, *args, **kwargs):
+		return Response(data=Operator.top_by_workload(), status=200)
+	
 	@action(detail=False, methods=['GET'], name='Get Operator by Workload')
 	def operator_by_workload(self, request, *args, **kwargs):
 		return Response(data=Operator.by_workload(), status=200)
@@ -36,6 +40,10 @@ class ProviderViewSet(viewsets.ReadOnlyModelViewSet):
 	permission_classes = [IsAuthenticatedOrReadOnly]
 	queryset = Provider.objects.all()
 	serializer_class = ProviderSerializer
+
+	@action(detail=False, methods=['GET'], name='Get Top Provider by Participation')
+	def top_provider_by_participation(self, request, *args, **kwargs):
+		return Response(data=Provider.top_by_participation(), status=200)
 
 	@action(detail=False, methods=['GET'], name='Get Provider by Participation')
 	def provider_by_participation(self, request, *args, **kwargs):
@@ -60,6 +68,14 @@ class ClientViewSet(viewsets.ReadOnlyModelViewSet):
 	permission_classes = [IsAuthenticatedOrReadOnly]
 	queryset = Client.objects.all()
 	serializer_class = ClientSerializer
+
+	@action(detail=False, methods=['GET'], name='Get Top Client by Services')
+	def top_client_by_services(self, request, *args, **kwargs):
+		return Response(data=Client.top_by_services(), status=200)
+
+	@action(detail=False, methods=['GET'], name='Get Client by Services')
+	def client_by_services(self, request, *args, **kwargs):
+		return Response(data=Client.by_services(), status=200)
 
 class PartViewSet(viewsets.ReadOnlyModelViewSet):
 	permission_classes = [IsAuthenticatedOrReadOnly]

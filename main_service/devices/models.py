@@ -30,6 +30,28 @@ class Client(models.Model):
     celphone = models.CharField(max_length=250)
     email = models.CharField(max_length=250, null=True, blank=True)
 
+    @classmethod
+    def top_by_services(cls):
+        return [
+            {
+                'count': obj["services"],
+                'name': f"{obj['firstname']} {obj['lastname']}" 
+            } for obj in cls.objects.exclude(devices__isnull=True).values('firstname', 'lastname').annotate(
+                services=Count('devices__services')
+            ).order_by('-services').all()[:7]
+        ]
+    
+    @classmethod
+    def by_services(cls):
+        return [
+            {
+                'count': obj["services"],
+                'name': f"{obj['firstname']} {obj['lastname']}" 
+            } for obj in cls.objects.exclude(devices__isnull=True).values('firstname', 'lastname').annotate(
+                services=Count('devices__services')
+            ).order_by('-services').all()[:20]
+        ]
+
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
 
@@ -40,6 +62,17 @@ class Provider(models.Model):
     email = models.CharField(max_length=250, null=True, blank=True)
 
     @classmethod
+    def top_by_participation(cls):
+        return [
+            {
+                'count': obj["participation"],
+                'name': obj['name']
+            } for obj in cls.objects.exclude(parts__isnull=True).values('name').annotate(
+                participation=Count('parts')
+            ).order_by('-participation').all()[:7]
+        ]
+    
+    @classmethod
     def by_participation(cls):
         return [
             {
@@ -47,7 +80,7 @@ class Provider(models.Model):
                 'name': obj['name']
             } for obj in cls.objects.exclude(parts__isnull=True).values('name').annotate(
                 participation=Count('parts')
-            ).order_by('participation').all()
+            ).order_by('-participation').all()[:25]
         ]
 
     def __str__(self):
@@ -57,7 +90,7 @@ class Device(models.Model):
     patent = models.CharField(max_length=250)
     model = models.ForeignKey(Model, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="devices")
 
     def __str__(self):
         return f"{self.patent} - {self.model} - {self.brand}"
@@ -80,6 +113,17 @@ class Operator(models.Model):
     email = models.CharField(max_length=250, null=True, blank=True)
 
     @classmethod
+    def top_by_workload(cls):
+        return [
+            {
+                'count': obj["workload"],
+                'name': f"{obj['firstname']} {obj['lastname']}" 
+            } for obj in cls.objects.exclude(services__isnull=True).values('firstname', 'lastname').annotate(
+                workload=Count('services')
+            ).order_by('-workload').all()[:5]
+        ]
+    
+    @classmethod
     def by_workload(cls):
         return [
             {
@@ -87,7 +131,7 @@ class Operator(models.Model):
                 'name': f"{obj['firstname']} {obj['lastname']}" 
             } for obj in cls.objects.exclude(services__isnull=True).values('firstname', 'lastname').annotate(
                 workload=Count('services')
-            ).order_by('workload').all()
+            ).all()
         ]
 
     def __str__(self):
@@ -146,7 +190,7 @@ class Service(models.Model):
     
     def take_service(self):
         self.operator = get_current_authenticated_user()
-        self.status = self.Status.WAITING
+        self.status = self.Status.PROCESSING
         self.save()
 
     def delay_service(self):

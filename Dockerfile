@@ -11,8 +11,11 @@ RUN pip install uwsgi psycopg2-binary cython
 RUN mkdir /code
 COPY main_service/ /code/
 COPY requirements.txt /code/
+COPY entrypoint.sh /code/
 WORKDIR /code
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:41666" ]
+RUN bash entrypoint.sh
+EXPOSE 41666
+ENTRYPOINT [ "python", "manage.py", "runserver", "0.0.0.0:41666" ]
