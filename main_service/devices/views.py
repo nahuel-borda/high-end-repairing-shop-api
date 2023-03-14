@@ -5,6 +5,15 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from devices.models import *
 from devices.serializers import *
+from django.http import JsonResponse
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+
+class HelloWorld(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, format=None):
+        return JsonResponse({'message': 'Hello, World!'})
 
 class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
 	permission_classes = [IsAuthenticatedOrReadOnly]
@@ -81,3 +90,28 @@ class PartViewSet(viewsets.ReadOnlyModelViewSet):
 	permission_classes = [IsAuthenticatedOrReadOnly]
 	queryset = Part.objects.all()
 	serializer_class = PartSerializer
+
+
+class Dashboard(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    
+    def get(self, request, format=None):
+        return JsonResponse({
+		'clients': ClientViewSet.as_view({'get': 'list'})(request._request).data,
+		'brands': BrandViewSet.as_view({'get': 'list'})(request._request).data,
+		'devices': DeviceViewSet.as_view({'get': 'list'})(request._request).data,
+		'parts': PartViewSet.as_view({'get': 'list'})(request._request).data,
+		'providers': ProviderViewSet.as_view({'get': 'list'})(request._request).data,
+		'operators': OperatorViewSet.as_view({'get': 'list'})(request._request).data,
+		'models': ModelViewSet.as_view({'get': 'list'})(request._request).data,
+		'services': ServiceViewSet.as_view({'get': 'list'})(request._request).data,
+		'clients_by_services': Client.by_services(),
+		'top_clients_by_services': Client.top_by_services(),
+		'provider_by_participation': Provider.by_participation(),
+		'top_provider_by_participation': Provider.top_by_participation(),
+		'operator_by_workload': Operator.by_workload(),
+		'top_operator_by_workload': Operator.top_by_workload(),
+		'service_ingress_count_by_date': Service.services_ingress_by_date(),
+		'services_by_status': Service.status_count(),
+		'status_count_by_date': Service.status_count_by_date(),
+	})
