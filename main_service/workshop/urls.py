@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from devices.urls import urlpatterns as devices_urls
+from . import views
 
 admin.site.site_header = 'Workshop Devices - Management'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('healthy/', views.healthy, name='healthy'),
 ]
 urlpatterns = urlpatterns + devices_urls

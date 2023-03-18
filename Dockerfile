@@ -18,4 +18,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN bash entrypoint.sh
 EXPOSE 41666
+Run apt-get -y install curl
 ENTRYPOINT [ "python", "manage.py", "runserver", "0.0.0.0:41666" ]

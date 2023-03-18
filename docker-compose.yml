@@ -2,6 +2,46 @@ version: '3'
 
 services:
   web:
-    build: .
+    image: little-data-analytics-dashboard
+    container_name: web-service
     ports:
-      - "8000:41666"
+        - '3000:3000'
+    networks: 
+      - "dashboard-cluster-net"    
+    healthcheck: 
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-service
+    ports:
+        - '41666:41666'
+    healthcheck: 
+      test: ["CMD", "curl", "localhost:41666/healthy/"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    networks: 
+      - "dashboard-cluster-net"
+
+  load-balancer:
+    build: 
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports: 
+      - "80:80"   
+    networks: 
+      - "dashboard-cluster-net"
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+
+networks: 
+    dashboard-cluster-net:
