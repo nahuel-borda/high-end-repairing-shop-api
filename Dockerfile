@@ -11,7 +11,6 @@ RUN pip install uwsgi psycopg2-binary cython
 
 RUN mkdir /code
 COPY requirements.txt /code/
-COPY entrypoint.dev.sh /code/
 COPY main_service /code/
 WORKDIR /code
 RUN pip install --no-cache-dir -r requirements.txt
