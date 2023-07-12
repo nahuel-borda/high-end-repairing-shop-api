@@ -6,8 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "8000:41666"
+      - "8000:8000"
     volumes:
       - ./main_service/:/code/
       - ./entrypoint.dev.sh:/code/entrypoint.dev.sh
+    environment:
+      - ADMIN_PASSWORD=TVyblX6MZNse=6D
     entrypoint: bash entrypoint.dev.sh

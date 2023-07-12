@@ -5,7 +5,8 @@ RUN apt-get update \
   # uwsgi dependencies
   && apt-get install -y gcc \
   # For requirements installed by pip via Gitlab
-  && apt-get install -y git
+  && apt-get install -y git \
+  && apt-get install -y curl
 RUN pip install uwsgi psycopg2-binary cython
 
 RUN mkdir /code
