@@ -1,1 +1,3 @@
 main_service/db.sqlite3
+__pycache__/
+env
