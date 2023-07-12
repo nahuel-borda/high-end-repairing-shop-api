@@ -14,5 +14,4 @@ COPY requirements.txt /code/
 COPY entrypoint.dev.sh /
 WORKDIR /code
 RUN pip install --no-cache-dir -r requirements.txt
-ENTRYPOINT ["bash"]
-CMD ["./entrypoint.dev.sh"]
+ENTRYPOINT ["/bin/bash", "entrypoint.dev.sh"]
