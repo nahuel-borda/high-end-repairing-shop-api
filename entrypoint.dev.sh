@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 cd code;
 rm -f db.sqlite3;
 python manage.py makemigrations;
